@@ -23,7 +23,7 @@ class LoginWindow:
         self.username=StringVar()
         self.password=StringVar()
 
-        self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
+        #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
         self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY(I.E.T)",font=("Arial",18,"bold"),relief="flat",bg="white")
         self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
@@ -31,8 +31,8 @@ class LoginWindow:
         self.collegeLabel2=Label(self.frame,text="DAVV,INDORE",font=("Arial",18,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
 
-        self.logoLabel=Label(self.frame,image=self.logoImage,font=("Arial",25,"bold"),relief="flat",bg="white")
-        self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
+        #self.logoLabel=Label(self.frame,image=self.logoImage,font=("Arial",25,"bold"),relief="flat",bg="white")
+        #self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
 
         self.titleLabel=Label(self.frame,text="User Login",font=("Arial",16,"bold"),relief="flat",bg="white",fg="darkblue")
         self.titleLabel.grid(row=3,column=0,columnspan=2,pady=15)
@@ -92,7 +92,7 @@ class PanelWindow:
         self.username=StringVar()
         self.password=StringVar()
 
-        self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
+        #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
         self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY(I.E.T)",font=("Arial",18,"bold"),relief="flat",bg="white")
         self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
@@ -100,8 +100,8 @@ class PanelWindow:
         self.collegeLabel2=Label(self.frame,text="DAVV,INDORE",font=("Arial",18,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
 
-        self.logoLabel=Label(self.frame,image=self.logoImage,font=("Arial",25,"bold"),relief="flat",bg="white")
-        self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
+        #self.logoLabel=Label(self.frame,image=self.logoImage,font=("Arial",25,"bold"),relief="flat",bg="white")
+        #self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
 
         self.titleLabel=Label(self.frame,text="Access Panel",font=("Arial",16,"bold"),relief="flat",bg="white")
         self.titleLabel.grid(row=3,column=0,columnspan=2,pady=15)
@@ -203,7 +203,7 @@ class BranchSlideWindow:
         self.session=StringVar()
         self.uploadcsv=StringVar()
 
-        self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
+        #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
         self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY(I.E.T)",font=("Arial",18,"bold"),relief="flat",bg="white")
         self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
@@ -211,8 +211,8 @@ class BranchSlideWindow:
         self.collegeLabel2=Label(self.frame,text="DAVV,INDORE",font=("Arial",18,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
 
-        self.logoLabel=Label(self.frame,image=self.logoImage,relief="flat",bg="white")
-        self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
+        #self.logoLabel=Label(self.frame,image=self.logoImage,relief="flat",bg="white")
+        #self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
 
         self.titleLabel=Label(self.frame,text="Branch Sliding",font=("Arial",16,"bold"),relief="flat",bg="white",fg="darkblue")
         self.titleLabel.grid(row=3,column=0,columnspan=2,pady=15)
@@ -276,10 +276,74 @@ class BranchSlideWindow:
             conn.close()
             return curobj.rowcount
 
+        def fetchId(oldRollNumber):
+            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
+            curobj=conn.cursor()
+            curobj.execute("SELECT id from class_registration where roll_no='%s'"%(oldRollNumber))
+            rows=curobj.fetchall()
+            conn.close()
+            return rows
+
+        def deleteRecord(id):
+            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
+            curobj=conn.cursor()
+            curobj.execute("DELETE FROM student_scheme_subject WHERE class_registration_id='%d'"%(id))
+            conn.commit()
+            conn.close()
+
+        def insertCopy(id):
+            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
+            curobj=conn.cursor()
+            query="INSERT INTO class_registration (session_id,section_id,student_id,scheme_id,registration_date,group_id,student_status_id,roll_no,status,is_deleted,created_by,updated_by,created_at,updated_at)SELECT session_id,section_id,student_id,scheme_id,registration_date,group_id,student_status_id,roll_no,status,is_deleted,created_by,updated_by,created_at,updated_at FROM class_registration WHERE id='%d'"%(id)
+            curobj.execute(query)
+            conn.commit()
+            conn.close()
+
+        def deleteRegistration(id):
+            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
+            curobj=conn.cursor()
+            curobj.execute("DELETE FROM class_registration WHERE id='%d'"%(id))
+            conn.commit()
+            conn.close()
+
+        def fetchBranchId(newBranch):
+            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
+            curobj=conn.cursor()
+            curobj.execute("SELECT id from branch where code='%s'"%(newBranch))
+            rows=curobj.fetchall()
+            conn.close()
+            return rows
+
+        def fetchSchemeId(course_id,term_id,branch_id):
+            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
+            curobj=conn.cursor()
+            curobj.execute("SELECT id from scheme where course_id='%d' and term_id='%d' and branch_id='%d'"%(course_id,term_id,branch_id))
+            rows=curobj.fetchall()
+            conn.close()
+            return rows
+
+        def updateRecord(section_id,scheme_id,newrollNumber,cr_id):
+            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
+            curobj=conn.cursor()
+            curobj.execute("UPDATE class_registration SET registration_date=CURDATE(),created_at=NOW(),updated_at=NOW(),section_id='%d',scheme_id='%d',roll_no='%s' WHERE id='%d'"%(section_id,scheme_id,newrollNumber,cr_id))
+            conn.commit()
+            conn.close()
+
+        def fetchIdAndSubjectId(scheme_id):
+            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
+            curobj=conn.cursor()
+            curobj.execute("SELECT id,subject_id from subject_scheme where scheme_id='%d'"%(scheme_id))
+            rows=curobj.fetchall()
+            conn.close()
+            return rows
+            
+
+
         def slideBranch():
             csvfilepath=self.uploadcsv.get()
             session=self.session.get()
             batch=self.batch.get()
+
 
             if len(csvfilepath)==0 or len(session)==0 or len(batch)==0:
                 tkinter.messagebox.showinfo("Branch Slide","Field(s) cannot be left blank ")
@@ -296,6 +360,7 @@ class BranchSlideWindow:
                 for row in csvdatalist:
                     enrollmentNumber=row[1]
                     newBranch=row[4]
+                    oldrollNumber=row[3]
                     newrollNumber=row[5]
                     newBranchcode=newrollNumber[:3]
                     newLastrollnumber=newrollNumber[4:]
@@ -316,6 +381,37 @@ class BranchSlideWindow:
 
                     #Fetching the New Branch
                     newBranch=fetchBranch(enrollmentNumber)
+
+                    record=fetchId(oldrollNumber)
+
+                    id_no=record[0][0]
+
+                    deleteRecord(id_no)
+
+                    insertCopy(id_no)
+
+                    deleteRegistration(id_no)
+
+                    record_no=fetchBranchId(newBranch)
+
+                    branch_id=record_no[0][0]
+
+                    course_id=16
+                    term_id=85
+
+                    scheme=fetchSchemeId(course_id,term_id,branch_id)
+
+                    new_cr_id=fetchId(oldrollNumber)
+
+                    cr_id=new_cr_id[0][0]
+
+                    scheme_id=scheme[0][0]
+
+                    section_id=newsection
+
+                    updateRecord(section_id,scheme_id,newrollNumber,cr_id)
+
+            
 
                     detailList.append([enrollmentNumber,oldBranch,newBranch])
 
@@ -340,7 +436,7 @@ class UpdateDetailsWindow:
         self.frame.pack()
         self.frame.config(bg="white")
 
-        self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
+        #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
         self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY(I.E.T)",font=("Arial",18,"bold"),relief="flat",bg="white")
         self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
@@ -348,8 +444,8 @@ class UpdateDetailsWindow:
         self.collegeLabel2=Label(self.frame,text="DAVV,INDORE",font=("Arial",18,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
 
-        self.logoLabel=Label(self.frame,image=self.logoImage,relief="flat",bg="white")
-        self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)
+        #self.logoLabel=Label(self.frame,image=self.logoImage,relief="flat",bg="white")
+        #self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)
 
         self.titleLabel=Label(self.frame,text="Branch Update Details",font=("Arial",15,"bold"),relief="flat",bd=2,bg="white",fg="green")
         self.titleLabel.grid(row=3,column=0,columnspan=2,pady=10)
@@ -391,5 +487,5 @@ class UpdateDetailsWindow:
             self.TreeView.insert("",END,values=row)
             self.TreeView.insert("",END,values=" ")
     
-app=LoginWindow(root)    
+app=BranchSlideWindow(root)    
 root.mainloop()
