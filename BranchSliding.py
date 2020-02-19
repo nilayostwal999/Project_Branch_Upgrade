@@ -14,7 +14,7 @@ root=Tk()
 class LoginWindow:
     def __init__(self,master):
         self.master=master
-        self.master.title("College Project")
+        self.master.title("IET Result Software - Login")
 
       
         pad=5
@@ -89,7 +89,7 @@ class LoginWindow:
 
         def developersPage(event):
             self.newWindow = Toplevel(self.master)
-            self.app = PanelWindow(self.newWindow)
+            self.app = DevelopersWindow(self.newWindow)
 
 
         self.DevelopersLabel = Label(self.frame, text="Meet the Developers", font=("Arial", 15, "bold", "underline"), relief="flat", bg="white", fg="#006622", cursor="hand2")
@@ -97,10 +97,10 @@ class LoginWindow:
         self.DevelopersLabel.grid(row=5, column=0, columnspan=2, pady=15)
 
 class PanelWindow:
-    
+
     def __init__(self,master):
         self.master=master
-        self.master.title("Access Panel")
+        self.master.title("IET Result Software - Access Panel")
 
         pad = 5
         master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
@@ -191,7 +191,7 @@ class PanelWindow:
 
         def gradeCardPage():
             webbrowser.open("http://localhost:8085/result/gradeCard")
-            
+
         self.gradeCardButton = Button(self.surroundFrame, text="Grade Card",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=gradeCardPage)
         self.gradeCardButton.grid(row=3,column=0,padx=10,pady=15)
 
@@ -203,13 +203,13 @@ class PanelWindow:
 
         def provisionalIndexPage():
             webbrowser.open("http://localhost:8085/result/provisionalIndex")
-        
+
         self.provisionalIndexButton = Button(self.surroundFrame, text="Provisional Index",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=provisionalIndexPage)
         self.provisionalIndexButton.grid(row=3,column=2,padx=10,pady=15)
 
         def changeSchemeTypePage():
             webbrowser.open("http://localhost:8085/result/changeSchemeType")
-        
+
         self.changeSchemeTypeButton = Button(self.surroundFrame, text="Change Scheme Type",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=changeSchemeTypePage)
         self.changeSchemeTypeButton.grid(row=4,column=0,padx=10,pady=15)
 
@@ -223,13 +223,10 @@ class PanelWindow:
 class BranchSlideWindow:
     def __init__(self,master):
         self.master=master
-        self.master.title("College Project")
+        self.master.title("IET Result Software - Branch Slide")
 
-      
         pad = 5
         master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
-
-
 
         self.master.config(bg="white")
         self.frame=Frame(self.master)
@@ -275,11 +272,11 @@ class BranchSlideWindow:
         sessionList=[]
         for session in record:
             sessionList.append(session[0])
-        
+
         self.sessionbox=ttk.Combobox(self.surroundFrame,width=11,font=("Arial",12),justify="center",values=sessionList,textvariable=self.session)
         self.sessionbox.grid(row=1,column=1,padx=30,pady=20)
 
-        self.batchLabel=Label(self.surroundFrame,text="Batch  :",font=("Arial",15,"bold"),relief="flat",bg="white")
+        self.batchLabel=Label(self.surroundFrame,text="Year of Admission  :",font=("Arial",15,"bold"),relief="flat",bg="white")
         self.batchLabel.grid(row=1,column=2,padx=30,pady=20)
 
         self.batchbox=ttk.Combobox(self.surroundFrame,width=11,font=("Arial",12),justify="center",values=["2014","2015","2016","2017","2018","2019"],textvariable=self.batch)
@@ -333,7 +330,7 @@ class BranchSlideWindow:
             curobj = conn.cursor()
             curobj.execute("DELETE FROM student_scheme_subject WHERE class_registration_id='%d'"%(id))
             conn.commit()
-            
+
 
         def insertCopy(id):
             conn = connect(host='localhost', database='test', user='root', passwd='')
@@ -342,7 +339,7 @@ class BranchSlideWindow:
             curobj.execute(query)
             conn.commit()
             conn.close()
-            
+
 
         def deleteRegistration(id):
             conn = connect(host='localhost', database='test', user='root', passwd='')
@@ -350,7 +347,7 @@ class BranchSlideWindow:
             curobj.execute("DELETE FROM class_registration WHERE id='%d'"%(id))
             conn.commit()
             conn.close()
-            
+
 
         def fetchBranchId(newBranch):
             conn = connect(host='localhost', database='test', user='root', passwd='')
@@ -374,7 +371,7 @@ class BranchSlideWindow:
             curobj.execute("UPDATE class_registration SET registration_date=CURDATE(),created_at=NOW(),updated_at=NOW(),section_id='%d',scheme_id='%d',roll_no='%s' WHERE id='%d'"%(section_id,scheme_id,newrollNumber,cr_id))
             conn.commit()
             conn.close()
-            
+
 
         def fetchIdAndSubjectId(scheme_id):
             conn = connect(host='localhost', database='test', user='root', passwd='')
@@ -391,8 +388,8 @@ class BranchSlideWindow:
             curobj.execute(query)
             conn.commit()
             conn.close()
-            
-            
+
+
         def slideBranch():
             csvfilepath=self.uploadcsv.get()
             session=self.session.get()
@@ -408,9 +405,9 @@ class BranchSlideWindow:
                 updatecount=0
                 totalcount=len(csvdatalist)
                 detailList=[]
-                
+
                 #validation
-                
+
                 for row in csvdatalist:
                     enrollmentNumber=row[1].upper()
                     newBranch=row[4].upper()
@@ -493,10 +490,9 @@ class UpdateDetailsWindow:
     def __init__(self,master,detailList):
         self.master=master
         self.detailList=detailList
-        self.master.title("College Project")
+        self.master.title("IET Result Software - Branch Update Details")
 
         pad=5
-      
         master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
 
         self.master.config(bg="white")
@@ -504,16 +500,11 @@ class UpdateDetailsWindow:
         self.frame.pack()
         self.frame.config(bg="white")
 
-        #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
-
         self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY",font=("Arial",22,"bold"),relief="flat",bg="white")
         self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
 
         self.collegeLabel2=Label(self.frame,text="DAVV, INDORE",font=("Arial",22,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
-
-        #self.logoLabel=Label(self.frame,image=self.logoImage,relief="flat",bg="white")
-        #self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)
 
         self.titleLabel=Label(self.frame,text="Branch Update Details",font=("Arial",15,"bold"),relief="flat",bd=2,bg="white",fg="green")
         self.titleLabel.grid(row=3,column=0,columnspan=2,pady=10)
@@ -554,6 +545,106 @@ class UpdateDetailsWindow:
             row=detailList[i]
             self.TreeView.insert("",END,values=row)
             self.TreeView.insert("",END,values=" ")
-    
+
+
+class DevelopersWindow:
+
+    def __init__(self, master):
+        self.master = master
+        self.master.title("IET Result Software - Meet the Developers")
+
+        pad = 5
+        master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
+
+        self.master.config(bg="white")
+        self.frame = Frame(self.master)
+        self.frame.pack(pady=20)
+        self.frame.config(bg="white")
+
+        # self.logoImage = ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
+
+        self.collegeLabel1 = Label(self.frame, text="INSTITUTE OF ENGINEERING AND TECHNOLOGY",
+                                   font=("Arial", 20, "bold"), relief="flat", bg="white")
+        self.collegeLabel1.grid(row=0, column=0, columnspan=2, pady=6)
+
+        self.collegeLabel2 = Label(self.frame, text="DAVV, INDORE", font=("Arial", 20, "bold"), relief="flat",
+                                   bg="white")
+        self.collegeLabel2.grid(row=1, column=0, columnspan=2)
+
+        # self.logoLabel = Label(self.frame, image=self.logoImage, font=("Arial", 25, "bold"), relief="flat", bg="white")
+        # self.logoLabel.grid(row=2, column=0, columnspan=2, pady=10)
+
+        self.titleLabel = Label(self.frame, text="MEET THE DEVELOPERS", font=("Arial", 16, "bold", 'underline'), relief="flat", bg="white", fg="red")
+        self.titleLabel.grid(row=3, column=0, columnspan=2, pady=15)
+
+        self.surroundFrame = Frame(self.frame, relief="raised", bd=5, bg="white", width=200)
+        self.surroundFrame.grid(row=4, column=0, padx=50)
+
+        self.surroundFrame = Frame(self.frame, relief="ridge", bd=2, bg="white", width=300)
+        self.surroundFrame.grid(row=4, column=0, columnspan=2, padx=20, pady=5)
+        #
+        # self.tree = ttk.Treeview(self.surroundFrame)
+        #
+        # self.tree["columns"] = ("one", "two", "three")
+        # self.tree.column("#0", width=270, minwidth=270, stretch=NO)
+        # self.tree.column("one", width=150, minwidth=150, stretch=NO)
+        # self.tree.column("two", width=400, minwidth=200)
+        # self.tree.column("three", width=80, minwidth=50, stretch=NO)
+        #
+        # self.tree.heading("#0", text="Name", anchor=W)
+        # self.tree.heading("one", text="Date modified", anchor=W)
+        # self.tree.heading("two", text="Type", anchor=W)
+        # self.tree.heading("three", text="Size", anchor=W)
+        #
+        # self.tree.heading("#0", text="Name", anchor=W)
+        # self.tree.heading("one", text="Date modified", anchor=W)
+        # self.tree.heading("two", text="Type", anchor=W)
+        # self.tree.heading("three", text="Size", anchor=W)
+        #
+        # # Level 1
+        # folder1 = self.tree.insert("", 1, "", text="Folder 1", values=("23-Jun-17 11:05", "File folder", ""))
+        # self.tree.insert("", 2, "", text="text_file.txt", values=("23-Jun-17 11:25", "TXT file", "1 KB"))
+        # # Level 2
+        # self.tree.insert(folder1, "end", "", text="photo1.png", values=("23-Jun-17 11:28", "PNG file", "2.6 KB"))
+        # self.tree.insert(folder1, "end", "", text="photo2.png", values=("23-Jun-17 11:29", "PNG file", "3.2 KB"))
+        # self.tree.insert(folder1, "end", "", text="photo3.png", values=("23-Jun-17 11:30", "PNG file", "3.1 KB"))
+
+        # columnList = ["Name", "Branch", "Batch", "Linked In", "Github"]
+        #
+        # self.style = ttk.Style()
+        # self.style.configure("mystyle.Treeview", font=("Arial", 11, "bold"))
+        # self.style.configure("mystyle.Treeview.Heading", font=("Arial", 10, "bold"), foreground="blue")
+        # self.style.layout("mystyle.Treeview", [("mystyle.Treeview.treearea", {'sticky': 'nswe'})])
+        #
+        # self.scrollbar = Scrollbar(self.surroundFrame)
+        # self.scrollbar.pack(side=RIGHT)
+        #
+        # self.TreeView = ttk.Treeview(self.surroundFrame, show="headings", column=columnList, height=27, style="mystyle.Treeview", yscrollcommand=self.scrollbar.set)
+        # self.TreeView.pack(side=LEFT, pady=5)
+        # self.scrollbar.config(command=self.TreeView.yview)
+        #
+        # for i in range(0, 1):
+        #     column = columnList[i]
+        #     self.TreeView.heading(column, text=column.title())
+        #     self.TreeView.column(column, width=170, anchor="center")
+        #
+        # for i in range(0, len(columnList)):
+        #     column = columnList[i]
+        #     self.TreeView.heading(column, text=column.title())
+        #     self.TreeView.column(column, width=140, anchor="center")
+
+
+        # for i in range(0, len(detailList), 2):
+        #     row = detailList[i]
+        #     self.TreeView.insert("", END, values=row)
+        #     self.TreeView.insert("", END, values=" ")
+        #
+        # for i in range(1, len(detailList), 2):
+        #     row = detailList[i]
+        #     self.TreeView.insert("", END, values=row)
+        #     self.TreeView.insert("", END, values=" ")
+
+
+
 app=LoginWindow(root)
 root.mainloop()
