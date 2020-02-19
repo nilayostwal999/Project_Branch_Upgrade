@@ -13,32 +13,36 @@ class LoginWindow:
     def __init__(self,master):
         self.master=master
         self.master.title("College Project")
-        self.master.geometry("800x670+250+5")
-        
+
+        # self.master.geometry("800x670+250+5")
+        pad=5
+        master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
+
+
         self.master.config(bg="white")
         self.frame=Frame(self.master)
-        self.frame.pack()
+        self.frame.pack(pady=50)
         self.frame.config(bg="white")
 
         self.username=StringVar()
         self.password=StringVar()
 
-        #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
+        self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
-        self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY(I.E.T)",font=("Arial",18,"bold"),relief="flat",bg="white")
-        self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
+        self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY",font=("Arial",22,"bold"),relief="flat",bg="white")
+        self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=15)
 
-        self.collegeLabel2=Label(self.frame,text="DAVV,INDORE",font=("Arial",18,"bold"),relief="flat",bg="white")
+        self.collegeLabel2=Label(self.frame,text="DAVV, INDORE",font=("Arial",22,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
 
-        #self.logoLabel=Label(self.frame,image=self.logoImage,font=("Arial",25,"bold"),relief="flat",bg="white")
-        #self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
+        self.logoLabel=Label(self.frame,image=self.logoImage,font=("Arial",25,"bold"),relief="flat",bg="white")
+        self.logoLabel.grid(row=2,column=0,columnspan=2,pady=20)
 
-        self.titleLabel=Label(self.frame,text="User Login",font=("Arial",16,"bold"),relief="flat",bg="white",fg="darkblue")
+        self.titleLabel=Label(self.frame,text="User Login",font=("Arial",18,"bold"),relief="flat",bg="white",fg="darkblue")
         self.titleLabel.grid(row=3,column=0,columnspan=2,pady=15)
 
         self.surroundFrame=Frame(self.frame,relief="raised",bd=5,bg="white",width=200)
-        self.surroundFrame.grid(row=4,column=0,padx=50)
+        self.surroundFrame.grid(row=4,column=0,columnspan=2,padx=50)
 
         self.UserLabel=Label(self.surroundFrame,text="Username  :",font=("Arial",15,"bold"),relief="flat",bg="white",justify="left")
         self.UserLabel.grid(row=1,column=0,padx=30,pady=20)
@@ -61,7 +65,7 @@ class LoginWindow:
                 tkinter.messagebox.showinfo("Login Window","Field(s) cannot be left blank")
 
             else:
-                if list(username)==list("admin") and list(password)==list("admin123"):
+                if list(username)==list("admin") and list(password)==list("edpresult"):
                     self.username.set("")
                     self.password.set("")
                     self.UserEntry.focus()
@@ -82,26 +86,29 @@ class PanelWindow:
     def __init__(self,master):
         self.master=master
         self.master.title("Access Panel")
-        self.master.geometry("800x670+250+5")
-        
+
+        # self.master.geometry("800x670+250+5")
+        pad = 5
+        master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
+
         self.master.config(bg="white")
         self.frame=Frame(self.master)
-        self.frame.pack()
+        self.frame.pack(pady=20)
         self.frame.config(bg="white")
 
         self.username=StringVar()
         self.password=StringVar()
 
-        #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
+        self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
-        self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY(I.E.T)",font=("Arial",18,"bold"),relief="flat",bg="white")
+        self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY",font=("Arial",20,"bold"),relief="flat",bg="white")
         self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
 
-        self.collegeLabel2=Label(self.frame,text="DAVV,INDORE",font=("Arial",18,"bold"),relief="flat",bg="white")
+        self.collegeLabel2=Label(self.frame,text="DAVV, INDORE",font=("Arial",20,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
 
-        #self.logoLabel=Label(self.frame,image=self.logoImage,font=("Arial",25,"bold"),relief="flat",bg="white")
-        #self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
+        self.logoLabel=Label(self.frame,image=self.logoImage,font=("Arial",25,"bold"),relief="flat",bg="white")
+        self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)
 
         self.titleLabel=Label(self.frame,text="Access Panel",font=("Arial",16,"bold"),relief="flat",bg="white")
         self.titleLabel.grid(row=3,column=0,columnspan=2,pady=15)
@@ -147,13 +154,13 @@ class PanelWindow:
         self.examRegistrationButton.grid(row=1,column=2,padx=10,pady=15)
 
         def summaryUploadPage():
-            webbrowser.open("C:\\Users\\Admin\\Desktop\\summary upload.bat")
+            webbrowser.open("others\\summary upload.bat")
 
         self.summaryUploadButton = Button(self.surroundFrame, text="Summary Upload",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=summaryUploadPage)
         self.summaryUploadButton.grid(row=2,column=0,padx=10,pady=15)
 
         def dataEntryPage():
-            webbrowser.open("D:\\Xampp\\htdocs\\summary wise student data entry")
+            webbrowser.open("others\\summary wise student data entry")
 
         self.studentEntryButton = Button(self.surroundFrame, text="Student Data Entry",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=dataEntryPage)
         self.studentEntryButton.grid(row=2,column=1,padx=10,pady=15)
@@ -188,31 +195,43 @@ class PanelWindow:
         self.changeSchemeTypeButton = Button(self.surroundFrame, text="Change Scheme Type",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=changeSchemeTypePage)
         self.changeSchemeTypeButton.grid(row=4,column=0,padx=10,pady=15)
 
+        def ietSoftwareLogin():
+            webbrowser.open("http://localhost:8015/")
+
+
+        self.ietSoftwareButton = Button(self.surroundFrame, text="IET Software Login",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=ietSoftwareLogin)
+        self.ietSoftwareButton.grid(row=4,column=1,padx=10,pady=15)
+
 class BranchSlideWindow:
     def __init__(self,master):
         self.master=master
         self.master.title("College Project")
-        self.master.geometry("800x670+250+5")
-        
+
+        # self.master.geometry("800x670+250+5")
+        pad = 5
+        master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
+
+
+
         self.master.config(bg="white")
         self.frame=Frame(self.master)
-        self.frame.pack()
+        self.frame.pack(pady=20)
         self.frame.config(bg="white")
 
         self.batch=StringVar()
         self.session=StringVar()
         self.uploadcsv=StringVar()
 
-        #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
+        self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
-        self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY(I.E.T)",font=("Arial",18,"bold"),relief="flat",bg="white")
+        self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY",font=("Arial",20,"bold"),relief="flat",bg="white")
         self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
 
-        self.collegeLabel2=Label(self.frame,text="DAVV,INDORE",font=("Arial",18,"bold"),relief="flat",bg="white")
+        self.collegeLabel2=Label(self.frame,text="DAVV, INDORE",font=("Arial",20,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
 
-        #self.logoLabel=Label(self.frame,image=self.logoImage,relief="flat",bg="white")
-        #self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)    
+        self.logoLabel=Label(self.frame,image=self.logoImage,relief="flat",bg="white")
+        self.logoLabel.grid(row=2,column=0,columnspan=2,pady=10)
 
         self.titleLabel=Label(self.frame,text="Branch Sliding",font=("Arial",16,"bold"),relief="flat",bg="white",fg="darkblue")
         self.titleLabel.grid(row=3,column=0,columnspan=2,pady=15)
@@ -227,8 +246,8 @@ class BranchSlideWindow:
         self.sessionLabel.grid(row=1,column=0,padx=30,pady=20)
 
         def fetchSessionList():
-            conn=connect(host="localhost",database="branch_slide",user="root",passwd="")
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("SELECT name FROM session")
             rows=curobj.fetchall()
             conn.close()
@@ -259,17 +278,25 @@ class BranchSlideWindow:
         self.uploadEntry=Entry(self.surroundFrame,font=("Arial",13),relief="raised",bg="white",bd=1,width=49,textvariable=self.uploadcsv)
         self.uploadEntry.grid(row=2,column=1,columnspan=6,padx=20)
 
+        def fetchStudentId(enrollmentNumber):
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
+            curobj.execute("SELECT id from student where enroll_no='%s'"%(enrollmentNumber))
+            rows=curobj.fetchall()
+            conn.close()
+            return rows
+
         def fetchBranch(enrollmentNumber):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("SELECT branch_code FROM student WHERE enroll_no='%s'"%(enrollmentNumber))
             oldBranch=curobj.fetchall()
             conn.close()
             return oldBranch[0][0]
 
         def updateData(enrollmentNumber,newBranch,newRoll3,newRoll4,newRoll5,newRoll6,newRoll7,newRoll8,newsection):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             query = "update student set branch_code='%s',roll_no_3='%s',roll_no_4='%s',roll_no_5='%s',roll_no_6='%s',roll_no_7='%s',roll_no_8='%s',section_id='%d' WHERE enroll_no='%s'"%(newBranch,newRoll3,newRoll4,newRoll5,newRoll6,newRoll7,newRoll8,newsection,enrollmentNumber)
             curobj.execute(query)
             conn.commit()
@@ -277,68 +304,77 @@ class BranchSlideWindow:
             return curobj.rowcount
 
         def fetchId(oldRollNumber):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("SELECT id from class_registration where roll_no='%s'"%(oldRollNumber))
             rows=curobj.fetchall()
-            conn.close()
             return rows
 
         def deleteRecord(id):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("DELETE FROM student_scheme_subject WHERE class_registration_id='%d'"%(id))
             conn.commit()
-            conn.close()
+            
 
         def insertCopy(id):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             query="INSERT INTO class_registration (session_id,section_id,student_id,scheme_id,registration_date,group_id,student_status_id,roll_no,status,is_deleted,created_by,updated_by,created_at,updated_at)SELECT session_id,section_id,student_id,scheme_id,registration_date,group_id,student_status_id,roll_no,status,is_deleted,created_by,updated_by,created_at,updated_at FROM class_registration WHERE id='%d'"%(id)
             curobj.execute(query)
             conn.commit()
             conn.close()
+            
 
         def deleteRegistration(id):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("DELETE FROM class_registration WHERE id='%d'"%(id))
             conn.commit()
             conn.close()
+            
 
         def fetchBranchId(newBranch):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("SELECT id from branch where code='%s'"%(newBranch))
             rows=curobj.fetchall()
             conn.close()
             return rows
 
         def fetchSchemeId(course_id,term_id,branch_id):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("SELECT id from scheme where course_id='%d' and term_id='%d' and branch_id='%d'"%(course_id,term_id,branch_id))
             rows=curobj.fetchall()
             conn.close()
             return rows
 
         def updateRecord(section_id,scheme_id,newrollNumber,cr_id):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("UPDATE class_registration SET registration_date=CURDATE(),created_at=NOW(),updated_at=NOW(),section_id='%d',scheme_id='%d',roll_no='%s' WHERE id='%d'"%(section_id,scheme_id,newrollNumber,cr_id))
             conn.commit()
             conn.close()
+            
 
         def fetchIdAndSubjectId(scheme_id):
-            conn=connect(host='localhost',database='branch_slide',user='root',passwd='')
-            curobj=conn.cursor()
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
             curobj.execute("SELECT id,subject_id from subject_scheme where scheme_id='%d'"%(scheme_id))
             rows=curobj.fetchall()
             conn.close()
             return rows
+
+        def insertNewStudentScheme(student_id,scheme_structure_id,subject_id,cr_id):
+            conn = connect(host='localhost', database='test', user='root', passwd='')
+            curobj = conn.cursor()
+            query="INSERT INTO student_scheme_subject (student_id,scheme_structure_id,subject_id,created_by,updated_by,created_at,updated_at,class_registration_id) VALUES('%d','%d','%d',1,1,NOW(),NOW(),'%d')"%(student_id,scheme_structure_id,subject_id,cr_id)
+            curobj.execute(query)
+            conn.commit()
+            conn.close()
             
-
-
+            
         def slideBranch():
             csvfilepath=self.uploadcsv.get()
             session=self.session.get()
@@ -358,10 +394,10 @@ class BranchSlideWindow:
                 #validation
                 
                 for row in csvdatalist:
-                    enrollmentNumber=row[1]
-                    newBranch=row[4]
-                    oldrollNumber=row[3]
-                    newrollNumber=row[5]
+                    enrollmentNumber=row[1].upper()
+                    newBranch=row[4].upper()
+                    oldrollNumber=row[3].upper()
+                    newrollNumber=row[5].upper()
                     newBranchcode=newrollNumber[:3]
                     newLastrollnumber=newrollNumber[4:]
                     newRoll3=newrollNumber
@@ -370,7 +406,14 @@ class BranchSlideWindow:
                     newRoll6=newBranchcode+"6"+newLastrollnumber;
                     newRoll7=newBranchcode+"7"+newLastrollnumber;
                     newRoll8=newBranchcode+"8"+newLastrollnumber;
-                    newsection=row[6]
+                    newSection=row[6].upper()
+
+                    if newSection=="A":
+                        newsection=30
+                    else:
+                        newsection=32
+
+                    student_id=fetchStudentId(enrollmentNumber)[0][0]
 
                     #Fetching the old Branch
                     oldBranch=fetchBranch(enrollmentNumber)
@@ -411,7 +454,10 @@ class BranchSlideWindow:
 
                     updateRecord(section_id,scheme_id,newrollNumber,cr_id)
 
-            
+                    result1=fetchIdAndSubjectId(scheme_id)
+
+                    for student in result1:
+                        insertNewStudentScheme(student_id,student[0],student[1],cr_id)
 
                     detailList.append([enrollmentNumber,oldBranch,newBranch])
 
@@ -424,13 +470,17 @@ class BranchSlideWindow:
         self.changeButton=Button(self.surroundFrame,text="Slide Branch",font=("Arial",12,"bold"),relief="raised",bg="white",activebackground="white",command=slideBranch)
         self.changeButton.grid(row=3,column=0,columnspan=6,padx=30,pady=20)
 
+
 class UpdateDetailsWindow:
     def __init__(self,master,detailList):
         self.master=master
         self.detailList=detailList
         self.master.title("College Project")
-        self.master.geometry("800x670+250+5")
-        
+
+        pad=5
+        # self.master.geometry("800x670+250+5")
+        master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
+
         self.master.config(bg="white")
         self.frame=Frame(self.master)
         self.frame.pack()
@@ -438,10 +488,10 @@ class UpdateDetailsWindow:
 
         #self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
-        self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY(I.E.T)",font=("Arial",18,"bold"),relief="flat",bg="white")
+        self.collegeLabel1=Label(self.frame,text="INSTITUTE OF ENGINEERING AND TECHNOLOGY",font=("Arial",22,"bold"),relief="flat",bg="white")
         self.collegeLabel1.grid(row=0,column=0,columnspan=2,pady=6)
 
-        self.collegeLabel2=Label(self.frame,text="DAVV,INDORE",font=("Arial",18,"bold"),relief="flat",bg="white")
+        self.collegeLabel2=Label(self.frame,text="DAVV, INDORE",font=("Arial",22,"bold"),relief="flat",bg="white")
         self.collegeLabel2.grid(row=1,column=0,columnspan=2)
 
         #self.logoLabel=Label(self.frame,image=self.logoImage,relief="flat",bg="white")
@@ -456,14 +506,14 @@ class UpdateDetailsWindow:
         columnList=["Enrollment Number","Old Branch","New Branch"]
 
         self.style=ttk.Style()
-        self.style.configure("mystyle.Treeview",font=("Arial",10,"bold"))
-        self.style.configure("mystyle.Treeview.Heading",font=("Arial",13,"bold"),foreground="blue")
+        self.style.configure("mystyle.Treeview",font=("Arial",11,"bold"))
+        self.style.configure("mystyle.Treeview.Heading",font=("Arial",14,"bold"),foreground="blue")
         self.style.layout("mystyle.Treeview",[("mystyle.Treeview.treearea",{'sticky':'nswe'})])
 
         self.scrollbar=Scrollbar(self.surroundFrame)
         self.scrollbar.pack(side=RIGHT)
         
-        self.TreeView=ttk.Treeview(self.surroundFrame,show="headings",column=columnList,height=10,style="mystyle.Treeview",yscrollcommand=self.scrollbar.set)
+        self.TreeView=ttk.Treeview(self.surroundFrame,show="headings",column=columnList,height=27,style="mystyle.Treeview",yscrollcommand=self.scrollbar.set)
         self.TreeView.pack(side=LEFT,pady=5)
         self.scrollbar.config(command=self.TreeView.yview)
 
@@ -487,5 +537,5 @@ class UpdateDetailsWindow:
             self.TreeView.insert("",END,values=row)
             self.TreeView.insert("",END,values=" ")
     
-app=BranchSlideWindow(root)    
+app=LoginWindow(root)
 root.mainloop()
