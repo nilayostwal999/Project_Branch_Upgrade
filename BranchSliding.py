@@ -6,6 +6,8 @@ from pandas import read_csv
 from PIL import ImageTk,Image
 from mysql.connector import connect
 import webbrowser
+import subprocess
+import os
 
 root=Tk()
 
@@ -14,7 +16,7 @@ class LoginWindow:
         self.master=master
         self.master.title("College Project")
 
-        # self.master.geometry("800x670+250+5")
+      
         pad=5
         master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
 
@@ -57,12 +59,12 @@ class LoginWindow:
         self.PasswordEntry=Entry(self.surroundFrame,font=("Arial",15,"bold"),relief="raised",bd=2,justify="center",show="*",bg="white",textvariable=self.password)
         self.PasswordEntry.grid(row=2,column=1,padx=30,pady=20)
 
-        def userLogin():
+        def userLogin(event):
             username=self.username.get()
             password=self.password.get()
 
             if list(username)==list("") or list(password)==list(""):
-                tkinter.messagebox.showinfo("Login Window","Field(s) cannot be left blank")
+                tkinter.messagebox.showinfo("Login Window","Field(s) cannot be left blank!!")
 
             else:
                 if list(username)==list("admin") and list(password)==list("edpresult"):
@@ -79,15 +81,27 @@ class LoginWindow:
                     self.password.set("")
                     self.UserEntry.focus()
 
+        # Login
         self.LoginButton=Button(self.surroundFrame,text="Login",width=13,font=("Arial",12,"bold"),relief="raised",bg="white",fg="darkblue",activebackground="white",activeforeground="darkblue",command=userLogin)
         self.LoginButton.grid(row=3,column=0,columnspan=2,padx=30,pady=20)
+        self.UserEntry.bind('<Return>',userLogin)
+        self.PasswordEntry.bind('<Return>',userLogin)
+
+        def developersPage(event):
+            self.newWindow = Toplevel(self.master)
+            self.app = PanelWindow(self.newWindow)
+
+
+        self.DevelopersLabel = Label(self.frame, text="Meet the Developers", font=("Arial", 15, "bold", "underline"), relief="flat", bg="white", fg="#006622", cursor="hand2")
+        self.DevelopersLabel.bind('<Button-1>',developersPage)
+        self.DevelopersLabel.grid(row=5, column=0, columnspan=2, pady=15)
 
 class PanelWindow:
+    
     def __init__(self,master):
         self.master=master
         self.master.title("Access Panel")
 
-        # self.master.geometry("800x670+250+5")
         pad = 5
         master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
 
@@ -96,8 +110,8 @@ class PanelWindow:
         self.frame.pack(pady=20)
         self.frame.config(bg="white")
 
-        self.username=StringVar()
-        self.password=StringVar()
+        # self.username=StringVar()
+        # self.password=StringVar()
 
         self.logoImage=ImageTk.PhotoImage(Image.open("IETDAVVlogo.jpg"))
 
@@ -154,13 +168,17 @@ class PanelWindow:
         self.examRegistrationButton.grid(row=1,column=2,padx=10,pady=15)
 
         def summaryUploadPage():
-            webbrowser.open("others\\summary upload.bat")
+            filename='others/ex_student_record_entry.bat'
+            filename=filename.replace('/','\\')
+            subprocess.call([rf'{filename}'])
 
         self.summaryUploadButton = Button(self.surroundFrame, text="Summary Upload",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=summaryUploadPage)
         self.summaryUploadButton.grid(row=2,column=0,padx=10,pady=15)
 
         def dataEntryPage():
-            webbrowser.open("others\\summary wise student data entry")
+            filename ='others/summary_wise_student_data_entry.bat'
+            filename = filename.replace('/', '\\')
+            subprocess.call([rf'{filename}'])
 
         self.studentEntryButton = Button(self.surroundFrame, text="Student Data Entry",width=20, font=("arial",13,"bold"),relief="raised", bd=2, bg="white", fg="darkblue",activebackground="white",activeforeground="darkblue",command=dataEntryPage)
         self.studentEntryButton.grid(row=2,column=1,padx=10,pady=15)
@@ -207,7 +225,7 @@ class BranchSlideWindow:
         self.master=master
         self.master.title("College Project")
 
-        # self.master.geometry("800x670+250+5")
+      
         pad = 5
         master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
 
@@ -478,7 +496,7 @@ class UpdateDetailsWindow:
         self.master.title("College Project")
 
         pad=5
-        # self.master.geometry("800x670+250+5")
+      
         master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
 
         self.master.config(bg="white")
