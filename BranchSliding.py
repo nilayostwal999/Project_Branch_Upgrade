@@ -20,7 +20,6 @@ class LoginWindow:
         pad=5
         master.geometry("{0}x{1}+0+0".format(master.winfo_screenwidth() - pad, master.winfo_screenheight() - pad))
 
-
         self.master.config(bg="white")
         self.frame=Frame(self.master)
         self.frame.pack(pady=50)
@@ -582,69 +581,6 @@ class DevelopersWindow:
 
         self.surroundFrame = Frame(self.frame, relief="ridge", bd=2, bg="white", width=300)
         self.surroundFrame.grid(row=4, column=0, columnspan=2, padx=20, pady=5)
-        #
-        # self.tree = ttk.Treeview(self.surroundFrame)
-        #
-        # self.tree["columns"] = ("one", "two", "three")
-        # self.tree.column("#0", width=270, minwidth=270, stretch=NO)
-        # self.tree.column("one", width=150, minwidth=150, stretch=NO)
-        # self.tree.column("two", width=400, minwidth=200)
-        # self.tree.column("three", width=80, minwidth=50, stretch=NO)
-        #
-        # self.tree.heading("#0", text="Name", anchor=W)
-        # self.tree.heading("one", text="Date modified", anchor=W)
-        # self.tree.heading("two", text="Type", anchor=W)
-        # self.tree.heading("three", text="Size", anchor=W)
-        #
-        # self.tree.heading("#0", text="Name", anchor=W)
-        # self.tree.heading("one", text="Date modified", anchor=W)
-        # self.tree.heading("two", text="Type", anchor=W)
-        # self.tree.heading("three", text="Size", anchor=W)
-        #
-        # # Level 1
-        # folder1 = self.tree.insert("", 1, "", text="Folder 1", values=("23-Jun-17 11:05", "File folder", ""))
-        # self.tree.insert("", 2, "", text="text_file.txt", values=("23-Jun-17 11:25", "TXT file", "1 KB"))
-        # # Level 2
-        # self.tree.insert(folder1, "end", "", text="photo1.png", values=("23-Jun-17 11:28", "PNG file", "2.6 KB"))
-        # self.tree.insert(folder1, "end", "", text="photo2.png", values=("23-Jun-17 11:29", "PNG file", "3.2 KB"))
-        # self.tree.insert(folder1, "end", "", text="photo3.png", values=("23-Jun-17 11:30", "PNG file", "3.1 KB"))
-
-        # columnList = ["Name", "Branch", "Batch", "Linked In", "Github"]
-        #
-        # self.style = ttk.Style()
-        # self.style.configure("mystyle.Treeview", font=("Arial", 11, "bold"))
-        # self.style.configure("mystyle.Treeview.Heading", font=("Arial", 10, "bold"), foreground="blue")
-        # self.style.layout("mystyle.Treeview", [("mystyle.Treeview.treearea", {'sticky': 'nswe'})])
-        #
-        # self.scrollbar = Scrollbar(self.surroundFrame)
-        # self.scrollbar.pack(side=RIGHT)
-        #
-        # self.TreeView = ttk.Treeview(self.surroundFrame, show="headings", column=columnList, height=27, style="mystyle.Treeview", yscrollcommand=self.scrollbar.set)
-        # self.TreeView.pack(side=LEFT, pady=5)
-        # self.scrollbar.config(command=self.TreeView.yview)
-        #
-        # for i in range(0, 1):
-        #     column = columnList[i]
-        #     self.TreeView.heading(column, text=column.title())
-        #     self.TreeView.column(column, width=170, anchor="center")
-        #
-        # for i in range(0, len(columnList)):
-        #     column = columnList[i]
-        #     self.TreeView.heading(column, text=column.title())
-        #     self.TreeView.column(column, width=140, anchor="center")
-
-
-        # for i in range(0, len(detailList), 2):
-        #     row = detailList[i]
-        #     self.TreeView.insert("", END, values=row)
-        #     self.TreeView.insert("", END, values=" ")
-        #
-        # for i in range(1, len(detailList), 2):
-        #     row = detailList[i]
-        #     self.TreeView.insert("", END, values=row)
-        #     self.TreeView.insert("", END, values=" ")
-
-
 
 app=LoginWindow(root)
 root.mainloop()
